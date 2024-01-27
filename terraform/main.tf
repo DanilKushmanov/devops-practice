@@ -24,14 +24,6 @@ resource "yandex_vpc_subnet" "test-subnet-a" {
   network_id = "${yandex_vpc_network.default.id}"
 }
 
-resource "yandex_vpc_address" "site-addr" {
-  name = "ext-ip"
-
-  #external_ipv4_address { 
-    #
-  #}
-}
-
 resource "yandex_compute_disk" "vm-hdd" {
   name = "hdd"
   type = "network-hdd"
@@ -59,8 +51,12 @@ resource "yandex_compute_instance" "vm-site" {
     nat = true
   }
 
+  metadata = {
+    ssh-keys = "ubuntu:${file("~/.ssh/id_ed25519.pub")}"
+  }
+
 }
 
 output "site-addr" { # не выдал внешний айпи, надо это отработать
-  value       = "${yandex_compute_instance.vm-site.network_interface[0].nat_ip_address}"
+  value       = "${yandex_compute_instance.vm-site.network_interface.0.nat_ip_address}"
 }
