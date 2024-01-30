@@ -57,6 +57,6 @@ resource "yandex_compute_instance" "vm-site" {
 
 }
 
-output "site-addr" { # не выдал внешний айпи, надо это отработать
+output "site-addr" {
   value       = "${yandex_compute_instance.vm-site.network_interface.0.nat_ip_address}"
 }
