@@ -1,6 +1,5 @@
-- name: Playbook
-  hosts: webserver
-  become: yes
-  become_user: root
+- hosts: webserver
   tasks:
-    
+  - name: apt
+    ansible.builtin.shell:
+      cmd: apt update
