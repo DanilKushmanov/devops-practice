@@ -57,6 +57,13 @@ resource "yandex_compute_instance" "vm-site" {
 
 }
 
+resource "local_file" "inventory" {
+    filename = "../ansible/inventory.ini"
+    content = <<EOF
+[webserver]
+${yandex_compute_instance.vm-site.network_interface.0.nat_ip_address}
+    EOF
+}
 output "site-addr" {
   value       = "${yandex_compute_instance.vm-site.network_interface.0.nat_ip_address}"
 }

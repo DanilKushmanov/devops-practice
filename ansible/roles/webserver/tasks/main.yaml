@@ -1,0 +1,27 @@
+---
+- name: check updates
+  ansible.builtin.shell:
+    cmd: apt update
+- name: creating admin user 'police_of_miami'
+  ansible.builtin.user:
+    name: police_of_miami
+    shell: /bin/bash
+    groups: users, sudo
+    append: yes
+- name: creating admin user 'chudac'
+  ansible.builtin.user:
+    name: chudac
+    shell: /bin/bash
+    groups: users, sudo
+    append: yes
+- name: adding ssh key for 'police_of_miami' users
+  ansible.builtin.copy:
+    src: /home/police_of_miami/.ssh
+    dest: /home/police_of_miami/
+- name: adding ssh key for 'chudac' users
+  ansible.builtin.copy:
+    src: /home/chudac/.ssh
+    dest: /home/chudac/
+- name: remove ssh key lolxd
+  ansible.builtin.shell:
+    cmd: rm -rf /home/police_of_miami/.ssh/id_ed25519
