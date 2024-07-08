@@ -7,6 +7,8 @@ terraform {
   required_version = ">= 0.13"
 }
 
+huy
+
 provider "yandex" {
   zone = "ru-central1-a"
   token = local.envs["TOKEN"]
